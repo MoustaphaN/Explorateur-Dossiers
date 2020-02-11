@@ -1,0 +1,30 @@
+<?php
+if($_FILES["upload_file"]["name"] != '')
+{
+ $data = explode(".", $_FILES["upload_file"]["name"]);
+ $extension = $data[1];
+ $allowed_extension = array("jpg", "png", "gif", "pdf", "txt", "htm", "html", "xml", "zip", "htm", "html", "xml", "rar", "jpeg", "pic", "pict", "psd", "psp",);
+
+ if(in_array($extension, $allowed_extension))
+ {
+  $new_file_name = rand() . '.' . $extension;
+  $path = $_POST["hidden_folder_name"] . '/' . $new_file_name;
+  if(move_uploaded_file($_FILES["upload_file"]["tmp_name"], $path))
+  {
+   echo 'Fichier Téléchargé avec succés';
+  }
+  else
+  {
+   echo 'Il y\'a une erreur';
+  }
+ }
+ else
+ {
+  echo 'Fichier non Téléchargé';
+ }
+}
+else
+{
+ echo 'Veuillez choisir un Fichier';
+}
+?>
